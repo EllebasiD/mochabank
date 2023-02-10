@@ -16,7 +16,7 @@ password :
 2. Lancer les applications mochabank et otherbank : gradle bootrun
 
 3. Adresses :
-http://localhost:8181/otherbank/
-http://localhost:8080/mochabank/
+- http://localhost:8181/otherbank/
+- http://localhost:8080/mochabank/
 
 Le fichier "Jeu de données" permet de tester l'application. Il contient les identifiants des deux banques, les informations nécessaires pour se connecter en tant qu'employé bancaire ou en tant que client, ainsi que les informations de comptes. 
