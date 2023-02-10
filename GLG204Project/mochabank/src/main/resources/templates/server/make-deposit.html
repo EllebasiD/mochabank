@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:insert="layout/default.html :: headerfiles"></th:block>
+<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+	<nav th:insert="layout/default.html :: navbar"></nav>
+	<div class="container" sec:authorize="isAuthenticated()">
+		<br><br><br><br>
+		<div th:if="${depositDone}" class="alert alert-info" th:text="#{deposit.done}">message</div>		
+		<h3 th:text="#{makeDeposit.account.title}">Make a deposit Account</h3>
+		<hr />
+		<br>
+		<!-- Display account name and bank name -->
+		<div th:if="${accountDTO} !=null">
+			<div class="bankName" th:text="${accountDTO.bankName} + ' - '+ ${accountDTO.accountName}">Bank name - Account name</div>
+		</div>
+		<br>
+		<form class="form-horizontal" method="post" th:action="@{/make-deposit}" >
+			<!-- Amount -->
+			<div class="form-group">
+				<label style="white-space: nowrap;" for="amount" class="col-sm-2 control-label" th:text="#{deposit.amount}">Amount</label>
+				<div class="col-sm-5">
+					<input  type="text" th:value="${amount}" id="amount" name="amount" class="form-control" />
+				</div>
+			</div>			
+			<br>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-5">
+				  <button type="submit" class="btn btn-primary" th:text="#{deposit.validate}">Validate deposit</button>
+				</div>
+			 </div>
+		</form>
+	
+	
+		<div class="erreur" th:if="${exception}" th:text="${exception}"></div>
+		<br>
+		<div th:insert="layout/default.html :: footer"></div>
+	</div>
+	<br><br><br>
+	<nav th:insert="layout/default.html :: footernavbar"></nav>
+	<div th:insert="layout/default.html :: scripts"></div>
+</body>
+</html>

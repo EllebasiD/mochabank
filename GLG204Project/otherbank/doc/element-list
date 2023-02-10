@@ -1,0 +1,17 @@
+com.anotherbank.mokabank
+com.externalbank.otherbank
+com.externalbank.otherbank.api
+com.externalbank.otherbank.authentication.api
+com.externalbank.otherbank.authentication.domain.dao
+com.externalbank.otherbank.authentication.domain.dto
+com.externalbank.otherbank.authentication.domain.model
+com.externalbank.otherbank.authentication.domain.service
+com.externalbank.otherbank.configuration
+com.externalbank.otherbank.domain.dao
+com.externalbank.otherbank.domain.dto
+com.externalbank.otherbank.domain.model
+com.externalbank.otherbank.domain.service
+com.externalbank.otherbank.exception
+com.externalbank.otherbank.exception.api
+com.externalbank.otherbank.logging
+com.externalbank.otherbank.task

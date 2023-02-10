@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:insert="layout/default.html :: headerfiles"></th:block>
+<link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+	<nav th:insert="layout/default.html :: navbar"></nav>
+	<div class="container" sec:authorize="isAuthenticated()">
+		<br><br><br><br>
+		<h3 th:text="#{checkBalance.account.title}">Check balance of Account</h3>
+		<hr />
+		<br>
+		<div th:if="${accountDTO} !=null">
+			<!-- Display account name and bank account -->
+			<div class="bankName" th:text="${accountDTO.bankName} + ' - '+ ${accountDTO.accountName}">Bank name - Account name</div>
+			<br>
+			<!-- Display la balance -->
+			<div th:text="#{account.balance} + ' : '  + ${accountDTO.balance}"></div>
+			
+		</div>
+		<div class="erreur" th:if="${exception}" th:text="${exception}"></div>
+		<br>
+		<div th:insert="layout/default.html :: footer"></div>
+	</div>
+	<br><br><br>
+	<nav th:insert="layout/default.html :: footernavbar"></nav>
+	<div th:insert="layout/default.html :: scripts"></div>
+</body>
+</html>

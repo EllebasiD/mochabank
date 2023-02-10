@@ -1,0 +1,51 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.1'
+	id "org.flywaydb.flyway" version "6.0.3"
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.externalbank'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+//ext {
+//	set('testcontainersVersion', "1.15.3")
+//}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.springframework.session:spring-session-core'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'mysql:mysql-connector-java' // for @WebListener
+	//runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0'
+	//testImplementation 'org.testcontainers:junit-jupiter'
+	//testImplementation 'org.testcontainers:mysql'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.4.RELEASE'
+	
+	testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+	testImplementation group: 'org.awaitility', name: 'awaitility', version: '4.1.0'	
+	// Quartz scheduler
+//	implementation 'org.springframework.boot:spring-boot-starter-quartz'
+}
+
+//apply from: 'mark.gradle'
+//test {
+//	useJUnitPlatform()
+//}

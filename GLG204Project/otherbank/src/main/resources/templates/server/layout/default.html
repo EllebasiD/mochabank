@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+
+<head th:fragment="headerfiles">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+<title th:text="#{title}"></title>
+<link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}">
+<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	
+	<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+		<a th:href="@{/}" ><img style="height:3em;border:0px" th:src="@{/img/LogoOtherBank.png}"/></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/}" th:text="#{menu.accueil}">Home </a>
+				</li>
+				<li class="nav-item" sec:authorize="isAnonymous()">
+					<a class="nav-link" th:href="@{/open-account-request}" th:text="#{menu.openAccount}">Open account </a>
+				</li>
+				<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+					<a class="nav-link dropdown-toggle" th:text="#{menu.manageBankClerks}" sec:authorize="hasRole('BANKCLERKHEAD')" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Manage Bank clerks
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" th:href="@{/create-bankclerk}" th:text="#{menu.createBankClerk}" sec:authorize="hasRole('BANKCLERKHEAD')">Create bank clerk</a>
+						<a class="dropdown-item" th:href="@{/search-bankclerk}" th:text="#{menu.searchBankClerk}" sec:authorize="hasRole('BANKCLERKHEAD')">Search bank clerk</a>
+						<a class="dropdown-item" th:href="@{/update-bankclerk}" th:text="#{menu.updateBankClerk}" sec:authorize="hasRole('BANKCLERKHEAD')">Update bank clerk</a>
+						<a class="dropdown-item" th:href="@{/delete-bankclerk}" th:text="#{menu.deleteBankClerk}" sec:authorize="hasRole('BANKCLERKHEAD')">Delete bank clerk</a>
+						<a class="dropdown-item" th:href="@{/display-bankclerks}" th:text="#{menu.displayBankClerks}" sec:authorize="hasRole('BANKCLERKHEAD')">Display bank clerks</a>						
+					</div>
+				</li>
+				<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+					<a class="nav-link dropdown-toggle" th:text="#{menu.manageCustomers}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Manage Customers
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" th:href="@{/display-open-account-requests}" th:text="#{menu.displayOpenAccountRequest}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Display open account requests</a>
+						<a class="dropdown-item" th:href="@{/create-customer}" th:text="#{menu.createCustomer}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Create customer</a>
+						<a class="dropdown-item" th:href="@{/search-customer}" th:text="#{menu.searchCustomer}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Search customer</a>
+						<a class="dropdown-item" th:href="@{/update-customer}" th:text="#{menu.updateCustomer}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Update customer</a>						
+						<a class="dropdown-item" th:href="@{/delete-customer}" th:text="#{menu.deleteCustomer}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Delete customer</a>
+						<a class="dropdown-item" th:href="@{/display-customers}" th:text="#{menu.displayCustomers}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Display customers</a>						
+					</div>
+				</li>
+				<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+					<a class="nav-link dropdown-toggle" th:text="#{menu.manageAccounts}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK', 'CUSTOMER')" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Manage customers accounts
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" th:href="@{/new-account}" th:text="#{menu.createAccount}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Create account</a>
+						<a class="dropdown-item" th:href="@{/update-account}" th:text="#{menu.updateAccount}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Update account</a>
+						<a class="dropdown-item" th:href="@{/delete-account}" th:text="#{menu.deleteAccount}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Delete account</a>
+						<a class="dropdown-item" th:href="@{/display-accounts}" th:text="#{menu.displayAccounts}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK')">Display accounts</a>						
+						<a class="dropdown-item" th:href="@{/check-balance}" th:text="#{menu.checkBalance}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK', 'CUSTOMER')">Check balance</a>					
+						<a class="dropdown-item" th:href="@{/check-transactions}" th:text="#{menu.checkTransactions}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK', 'CUSTOMER')">Check transactions</a>
+						<a class="dropdown-item" th:href="@{/make-deposit}" th:text="#{menu.makeDeposit}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK', 'CUSTOMER')">Make deposit</a>
+						<a class="dropdown-item" th:href="@{/order-transfer}" th:text="#{menu.orderBankTransfer}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK', 'CUSTOMER')">Order bank transfer</a>
+						<a class="dropdown-item" th:href="@{/program-transfer}" th:text="#{menu.programBankTransfer}" sec:authorize="hasAnyRole('BANKCLERKHEAD','BANKCLERK', 'CUSTOMER')">Program bank transfer</a>
+						<a class="dropdown-item" th:href="@{/add-transfer-destination-account}" th:text="#{menu.addTransferDestinationAccount}" sec:authorize="hasAnyRole('CUSTOMER')">add transfer destination account</a>
+						<a class="dropdown-item" th:href="@{/add-account}" th:text="#{menu.addAccount}" sec:authorize="hasAnyRole('CUSTOMER')">aggregate new account</a>
+						
+					</div>
+				</li>
+				<li class="nav-item" >
+					<a class="nav-link" th:href="@{/about}" th:text="#{menu.about}">About</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav" sec:authorize="isAnonymous()">
+				<li class="nav-item" id="login">
+					<a class="nav-link" th:href="@{/login}" th:text="#{menu.login}">Login</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav" sec:authorize="isAuthenticated()">
+				<li class="nav-item" id="login">
+					<a class="nav-link" th:href="@{/logout}" th:text="#{menu.logout}">Logout</a>
+				</li>
+			</ul>			
+		</div>		
+	</nav>
+	
+	
+	
+<!-- Footer -->
+<table th:fragment="footer" style="width:100%">
+    <tr>
+        <td>
+            <hr noShade SIZE=1>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" th:text="#{footer.demo}"></td>
+    </tr>
+    <tr>
+        <td>
+            <hr noShade SIZE=1>
+        </td>
+    </tr>
+	<tr>
+		<td align="center">
+			<a th:href="@{http://java.sun.com/}" target="_blank" ><img border="0" th:src="@{/img/java.gif}"/></a>
+			<a th:href="@{https://spring.io/projects/spring-boot}" target="_blank" ><img width="100em" th:src="@{/img/sboot.png}"/></a>
+			<a th:href="@{https://gradle.com/}" target="_blank"><img border="0" th:src="@{/img/Gradle.png}"/></a>
+			<a th:href="@{http://www.mysql.com/}" target="_blank" ><img border="0" th:src="@{/img/mysql.gif}"/></a>
+			<a th:href="@{http://jakarta.apache.org/tomcat/}" target="_blank"><img border="0" th:src="@{/img/tomcat.gif}"/></a>
+			<!-- Nouvelles images logo -->
+			<a th:href="@{https://www.thymeleaf.org/}" target="_blank"><img border="0" th:src="@{/img/thymeleaf.png}"/></a>
+			<a th:href="@{https://vuejs.org/}" target="_blank"><img border="0" th:src="@{/img/Vue.png}"/></a>
+			<a th:href="@{https://nodejs.org/}" target="_blank"><img border="0" th:src="@{/img/NodeJS.png}"/></a>
+			<a th:href="@{https://junit.org/junit4/}" target="_blank"><img border="0" th:src="@{/img/Junit.png}"/></a>
+			<a th:href="@{http://httpunit.sourceforge.net/}" target="_blank"><img border="0" th:src="@{/img/HttpUnit.png}"/></a>
+			<a th:href="@{https://greenmail-mail-test.github.io/greenmail/}" target="_blank"><img border="0" th:src="@{/img/GreenMail.png}"/></a>
+			<a th:href="@{https://www.wampserver.com}" target="_blank"><img border="0" th:src="@{/img/Wampserver.png}"/></a>
+			<a th:href="@{https://www.eclipse.org/ide/}" target="_blank"><img border="0" th:src="@{/img/eclipse.png}"/></a>
+		
+			<!---->
+		<td>
+	</tr>
+</table>
+
+	<nav th:fragment="footernavbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+		<a class="navbar-brand" th:href="@{/}" th:text="#{footer.bottom}"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
+	
+	<div th:fragment="scripts">
+	<script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>
+	<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	</div>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:insert="layout/default.html :: headerfiles"></th:block>
+<link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
+
+</head>
+<body>
+	<nav th:insert="layout/default.html :: navbar"></nav>
+	<div class="container" sec:authorize="isAuthenticated()">
+		<br><br><br><br>
+		<div th:if="${programTransferDone}" class="alert alert-info" th:text="#{programTransfer.done}">message</div>
+		<div th:if="${programTransferFail}" class="alert alert-info" th:text="#{programTransfer.fail}">message</div>
+		<h3 th:text="#{programTransfer.account.title}">Program transfer</h3>
+		<hr />
+		<br>
+		<!-- Display account name and bank account -->
+		<div th:if="${accountDTO} !=null">
+			<div class="bankName" th:text="${accountDTO.bankName} + ' - '+ ${accountDTO.accountName}">Bank name - Account name</div>
+		</div>
+		<br>
+		<form class="form-horizontal" method="post" th:action="@{/program-transfer}" th:object="${amount}" >
+			<!-- Account B -->
+			<div class="form-group">
+				<label for="accountIdB" style="white-space: nowrap;" class="col-sm-2 control-label" th:text="#{programTransfer.accountIdB}">Recipient account</label>
+				<div class="col-sm-5">
+					<input  type="text" th:value="${accountIdB}" id="accountIdB" name="accountIdB" class="form-control" />
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="bankNameB" style="white-space: nowrap;" class="col-sm-2 control-label" th:text="#{programTransfer.bankNameB}">Recipient account</label>
+				<div class="col-sm-5">
+					<input  type="text" th:value="${bankNameB}" id="bankNameB" name="bankNameB" class="form-control" />
+				</div>
+			</div>
+			<br>
+			<!-- Amount -->
+			<div class="form-group">
+				<label style="white-space: nowrap;" for="amount" class="col-sm-2 control-label" th:text="#{programTransfer.amount}">Amount</label>
+				<div class="col-sm-5">
+					<input  type="text" th:value="${amount}" id="amount" name="amount" class="form-control" />
+				</div>
+			</div>
+			<br>
+			<!-- Schedule -->
+			<!-- Display current date and time -->
+			<div id="dateAndTime" style = "text-align:left;" >
+				<h5 id="dateAndTimeTitle" th:text="#{programTransfer.timestamp}">Current date and time : </h5>
+				<h5>{{ timestamp }}</h5>
+			</div>
+			<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+			
+			<script type = "text/javascript">
+				
+				var app = new Vue({
+					el: '#dateAndTime',
+					data: {
+						timestamp: ""
+					},
+					created() {
+						setInterval(this.getNow, 1000);
+					},
+					methods: {
+						getNow: function() {
+							const today = new Date();
+							const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();							
+							const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+							const dateTime = date +' '+ time;
+							this.timestamp = dateTime;
+						}
+					}
+				});
+			</script>
+			<br>			
+			<!-- User guide -->
+			<div class = "textGuide">
+				Guide : <br>
+				Par exemple, il est 18h et vous souhaitez un virement unique à 18h10, entrez 10 dans le formulaire de minute et choisissez unique pour
+				la fréquence. Si par contre, vous souhaitez un virement toutes les 10 minutes, entrez 10 également dans le formulaire de minute mais 
+				choisissez récurrent pour la fréquence.
+			</div>
+			<br>
+			<!------- Minute ------------------>
+			<div class="form-group">
+				<label for="minute" class="col-sm-2 control-label" th:text="#{programTransfer.minute}">Minute</label>
+				<div class="col-sm-5">
+					<input  type="text" th:value="${minute}" id="minute" name="minute" class="form-control" />
+				</div>
+			</div>
+			<!------- Frequency : unique or recurrent ----->
+			<div class="form-group" >
+				<label for="frequency" class="col-sm-2 control-label" th:text="#{programTransfer.frequency}">Frequency</label>
+				<select id="frequency" th:name="frequency" required="required">
+					<option style="white-space: nowrap;" value="" th:disabled="disabled" th:selected="selected" th:text="#{programTransfer.choose}">Choose your option</option>
+					<option th:value="'unique'" th:text="#{programTransfer.unique}"></option>
+					<option th:value="'recurrent'" th:text="#{programTransfer.recurrent}"></option>
+				</select>
+			</div>
+			<!---------->
+			<br>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-5">
+				  <button type="submit" class="btn btn-primary" th:text="#{programTransfer.validate}">Validate transfer</button>
+				</div>
+			 </div>
+		</form>
+		N.B. : Pour les besoins de tests durant la soutenance du projet, il a été choisi de réaliser les virements programmés en fonction
+		des minutes au lieu des dates ou jours du mois. <br>
+		L'implémentation utilisant des expressions cron, ces minutes sont aisément remplaçables par des dates ou jours du mois.
+		<div class="erreur" th:if="${exception}" th:text="${exception}"></div>
+		<br>
+		<div th:insert="layout/default.html :: footer"></div>
+	</div>
+	<br><br><br>
+	<nav th:insert="layout/default.html :: footernavbar"></nav>
+	<div th:insert="layout/default.html :: scripts"></div>
+</body>
+</html>

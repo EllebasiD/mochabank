@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:insert="layout/default.html :: headerfiles"></th:block>
+<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+<nav th:insert="layout/default.html :: navbar"></nav>
+<div class="container" >
+<br><br><br><br>
+<table style="width:100%">
+<tr>
+<td style="text-align: justify; text-justify: inter-word;">
+	<div>
+	Mocha Bank est un projet de banque en ligne fictive réalisé dans le cadre du diplôme d'ingénieur informatique architecture et ingénierie 
+	des systèmes et des logiciels (AISL) pour l'unité d'enseignement GLG204 Architectures Logicielles Java(2).<br><br>
+	
+	Mocha Bank permet aux clients d'ouvrir un compte bancaire et d'effectuer diverses opérations bancaires. Il est également possible d'agréger des comptes 
+	bancaires externes afin de gérer ceux-ci depuis l'espace client Mocha Bank. De plus, elle donne la possibilité aux employés bancaires de gérer les clients ainsi 
+	que les comptes bancaires. Enfin, les chefs d'agence peuvent aussi s'occuper de la gestion des employés bancaires.<br><br>
+	
+	L'application Mocha bank tient compte de la DSP2 (Directive européenne relative aux services de paiement), en vigueur depuis début 2018.<br><br>
+	
+	Je remercie Mr Serge Rosmorduc, enseignant au CNAM Paris et tuteur sur ce projet, pour ses précieux conseils.
+	
+	</div>
+</table>
+<br><br><br><br>
+<div th:insert="layout/default.html :: footer"></div>
+</div>
+<nav th:insert="layout/default.html :: footernavbar"></nav>
+<div th:insert="layout/default.html :: scripts"></div>
+</body>
+</html>

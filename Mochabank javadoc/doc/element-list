@@ -1,0 +1,26 @@
+unnamed package
+com.anotherbank.mochabank
+com.anotherbank.mochabank.api
+com.anotherbank.mochabank.authentication.api
+com.anotherbank.mochabank.authentication.domain.dao
+com.anotherbank.mochabank.authentication.domain.dto
+com.anotherbank.mochabank.authentication.domain.model
+com.anotherbank.mochabank.authentication.domain.service
+com.anotherbank.mochabank.configuration
+com.anotherbank.mochabank.domain.dao
+com.anotherbank.mochabank.domain.dto
+com.anotherbank.mochabank.domain.model
+com.anotherbank.mochabank.domain.service
+com.anotherbank.mochabank.exception
+com.anotherbank.mochabank.exception.api
+com.anotherbank.mochabank.logging
+com.anotherbank.mochabank.task
+com.anotherbank.mokabank
+com.anotherbank.mokabank.authentication.domain.dao
+com.anotherbank.mokabank.authentication.domain.model
+com.anotherbank.mokabank.authentication.domain.service
+com.anotherbank.mokabank.configuration
+com.anotherbank.mokabank.domain.dao
+com.anotherbank.mokabank.domain.model
+com.anotherbank.mokabank.domain.service
+com.anotherbank.mokabank.web

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:insert="layout/default.html :: headerfiles"></th:block>
+<link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+	<nav th:insert="layout/default.html :: navbar"></nav>
+	<div class="container" sec:authorize="isAuthenticated()">
+		<br><br><br><br>
+		<h3 th:text="#{checkTransactions.account.title}">Check balance of Account</h3>
+		<hr />
+		<br>
+			<div th:if="${transactions} != null">
+			<!-- Display account name and bank account -->
+			<div class="bankName" th:text="${accountDTO.bankName} + ' - '+ ${accountDTO.accountName}">Bank name - Account name</div>
+			<br>
+			<!--Display banking history -->
+			<div id="subTitleCheckTransactions" th:text="#{account.transactions} + ' : '"></div>
+				<br>
+				<!-- Display balance -->
+				<div th:text="#{account.balance} + ' : '  + ${accountDTO.balance}"></div>
+				<br>
+				<div class="row justify-content-start" >
+					<table style="width: 100%;">
+						<tr id="arrayTitleCheckTransactions">
+							<td class="col-sm-2" th:text="#{checkTransactions.date}">Date</td>
+							<td style="white-space: nowrap;" class="col-sm-2" th:text="#{checkTransactions.description}">Description</td>
+							<td class="col-sm-2" th:text="#{checkTransactions.valeur}">Valeur</td>
+							<td style="white-space: nowrap;" class="col-sm-3" th:text="#{checkTransactions.recipient}">Recipient</td>							
+							<td class="col-sm-2" th:text="#{checkTransactions.credit}">Credit</td>
+							<td class="col-sm-2" th:text="#{checkTransactions.debit}">Debit</td>
+						</tr>
+						<tr  th:each="transaction : ${transactions}">
+							<td style="white-space: nowrap;" class="col-sm-2" th:text="${#temporals.format(transaction.transactionDate, 'dd-MM-YYYY - HH:mm:ss')}"></td>
+							<td style="white-space: nowrap;" class="col-sm-2" th:text="${transaction.description}"></td>
+							<td class="col-sm-2" th:text="${#temporals.format(transaction.transactionDate, 'dd-MM-YYYY')}"></td>							
+							<td>
+								<span th:if="${transaction.type == 'Crédit' and transaction.result == true}" class="col-sm-3" th:text="${transaction.accountA.getId()} + ' - ' + ${transaction.accountA.getAccountName()}">Account A</span>
+								<span th:if="${transaction.type == 'Débit' and transaction.accountB != null}" class="col-sm-3" th:text="${transaction.accountB.getId()} + ' - ' + ${transaction.accountB.getAccountName()}">Account B</span>
+								<span th:if="${transaction.type == 'Débit' and transaction.accountB == null}" class="col-sm-3" th:text="#{checkTransactions.recipientError}">Recipient error</span>
+							</td>							
+							<td>
+								<span th:if="${transaction.type} == 'Crédit'" class="col-sm-3" th:text="${transaction.amount}"></span>
+								<span th:unless="${transaction.type} == 'Crédit'" class="col-sm-3" th:text="''"></span>
+							</td>
+							<td> 
+								<span th:if="${transaction.type} == 'Débit'" class="col-sm-3" th:text="${transaction.amount}"></span>
+								<span th:unless="${transaction.type} == 'Débit'" class="col-sm-3" th:text="''"></span>
+							</td>
+						</tr>		
+					</table>	
+				</div>
+					
+			
+		</div>
+		<div class="erreur" th:if="${exception}" th:text="${exception}"></div>
+		<br>
+		<div th:insert="layout/default.html :: footer"></div>
+	</div>
+	<br><br><br>
+	<nav th:insert="layout/default.html :: footernavbar"></nav>
+	<div th:insert="layout/default.html :: scripts"></div>
+</body>
+</html>

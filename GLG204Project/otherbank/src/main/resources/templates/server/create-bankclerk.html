@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:insert="layout/default.html :: headerfiles"></th:block>
+	<link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+	<nav th:insert="layout/default.html :: navbar"></nav>
+    <div class="container">	
+    <br><br><br>
+		<div th:if="${bankClerkCreated}" class="alert alert-info" th:text="#{bankclerk.created}">message</div>
+		<h3 th:text="#{new.bankclerk.title}">New Account</h3>
+		<hr />
+		<br>
+		<form class="form-horizontal" method="post" name="bankClerkForm" th:action="@{/create-bankclerk}" th:object="${bankClerkDTO}">
+				<div class="form-group">
+		    <label for="username" class="col-sm-2 control-label" th:text="#{new.bankclerk.username}">e-mail</label>
+		    <div class="col-sm-5">
+		        <input th:field="${bankClerkDTO.username}" type="text" id="username" name="username" class="form-control" th:placeholder="#{new.bankclerk.username}" />
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="firstname" class="col-sm-2 control-label" th:text="#{new.bankclerk.firstname}">Firstname</label>
+		    <div class="col-sm-5">
+		        <input th:field="${bankClerkDTO.firstname}" type="text" id="firstname" class="form-control" th:placeholder="#{new.bankclerk.firstname}" />
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label" th:text="#{new.bankclerk.name}">Name</label>
+		    <div class="col-sm-5">
+		        <input th:field="${bankClerkDTO.lastname}" type="text" id="lastname" class="form-control" th:placeholder="#{new.bankclerk.name}" />
+		    </div>
+		</div>
+
+		<div class="form-group">
+		    <label for="password" class="col-sm-2 control-label" th:text="#{new.bankclerk.password}">Password</label>
+		    <div class="col-sm-5">
+		        <input th:field="${bankClerkDTO.password}" type="password" class="form-control" id="password" name="password" th:placeholder="#{new.bankclerk.password}"/>
+		    </div>
+		</div>
+		
+		<div class="form-group">
+				 <label for="email" class="col-sm-2 control-label" th:text="#{new.bankclerk.email}">Email</label>
+				  <div class="col-sm-5">
+		        <input th:field="${bankClerkDTO.email}" type="text" id="email" name="email" class="form-control" th:placeholder="#{new.bankclerk.email}" />
+		    </div>
+			</div>	
+		<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-5">
+				  <button type="submit" class="btn btn-primary" th:text="#{new.bankclerk.create}">Create</button>
+				</div>
+			 </div>
+			</form>
+			<br><br><br><br>
+		</div>
+	<nav th:insert="layout/default.html :: footernavbar"></nav>
+<div th:insert="layout/default.html :: scripts"></div>
+</body>
+</html>
