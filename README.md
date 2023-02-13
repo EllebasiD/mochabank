@@ -12,6 +12,7 @@ Utilisation :
   - otherbankdb
  
 User : root
+
 password :
 
 2. Lancer les applications mochabank et otherbank : gradle bootrun
