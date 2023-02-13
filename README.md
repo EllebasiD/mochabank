@@ -10,6 +10,7 @@ Utilisation :
 1. Créer les bases de données avec phpmyadmin:
   - mochabankdb
   - otherbankdb
+ 
 User : root
 password :
 
