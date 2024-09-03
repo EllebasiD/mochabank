@@ -1,5 +1,5 @@
 # mokabank
-Projet Architecture Logicielle Java : application bancaire en ligne
+Projet Architectures Logicielles Java : application bancaire en ligne
 
 Mocha Bank est un établissement bancaire fictif, créé spécialement pour l’unité d’enseignement GLG204 - Architectures logicielles Java (2) du CNAM.
 Ce projet ne reflète pas forcément les pratiques du secteur bancaire, en effet, il se limite à mes connaissances actuelles. En effet, je n'exerce pas dans ce secteur.
